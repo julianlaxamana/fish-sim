@@ -1,0 +1,61 @@
+<mujoco>
+  <compiler angle="radian" autolimits="true"/>
+  <option density="1000" viscosity="0.0009" timestep="0.002" integrator="implicitfast" gravity="0 0 -9.81"/>
+
+  <default>
+    <joint type="hinge" axis="0 0 1" range="-0.785 0.785" damping="0.5" armature="0.01"/>
+    <geom fluidshape="ellipsoid" fluidcoef="0.5 0.25 1.5 1.0 1.0"/>
+    <position kp="50" kv="2" ctrlrange="-0.785 0.785" forcerange="-10 10"/>
+  </default>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.15 0.45 0.6" rgb2="0.0 0.05 0.1"
+      width="512" height="3072"/>
+    <texture name="sand" type="2d" builtin="checker" rgb1="0.76 0.7 0.5" rgb2="0.7 0.64 0.45"
+      width="512" height="512"/>
+    <material name="seabed" texture="sand" texrepeat="10 10"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 10" dir="0 0 -1" directional="true" diffuse="0.5 0.7 0.8"/>
+    <geom name="seabed" type="plane" size="50 50 0.1" pos="0 0 -3" material="seabed"/>
+
+    <body name="fish" pos="0 0 -2">
+      <freejoint/>
+      <geom type="box" size="0.3 0.1 0.15" mass="7"/>
+
+      <body name="tail_1" pos="0.3 0 0">
+        <joint name="tail_joint_1"/>
+        <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+
+        <body name="tail_2" pos="0.2 0 0">
+          <joint name="tail_joint_2"/>
+          <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+
+          <body name="tail_3" pos="0.2 0 0">
+            <joint name="tail_joint_3"/>
+            <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+
+            <body name="tail_4" pos="0.2 0 0">
+              <joint name="tail_joint_4"/>
+              <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+
+              <body name="tail_5" pos="0.2 0 0">
+                <joint name="tail_joint_5"/>
+                <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="tail_servo_1" joint="tail_joint_1"/>
+    <position name="tail_servo_2" joint="tail_joint_2"/>
+    <position name="tail_servo_3" joint="tail_joint_3"/>
+    <position name="tail_servo_4" joint="tail_joint_4"/>
+    <position name="tail_servo_5" joint="tail_joint_5"/>
+  </actuator>
+</mujoco>
