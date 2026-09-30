@@ -22,14 +22,23 @@
 
     <body name="fish" pos="0 0 -2">
       <freejoint/>
-      <geom type="box" size="0.3 0.1 0.15" mass="7"/>
+      <geom type="box" size="0.4 0.125 0.3" mass="7"/>
 
-      <body name="tail_1" pos="0.3 0 0">
+      <body name="fin_1" pos="-0.25 0.125 0">
+        <joint name="fin_joint_1" axis="0 1 0" range="-0.5 0.5"/>
+        <geom type="box" size="0.12 0.15 0.01" pos="0 0.15 0" mass="0.1"/>
+      </body>
+
+      <body name="fin_2" pos="-0.25 -0.125 0">
+        <joint name="fin_joint_2" axis="0 1 0" range="-0.5 0.5"/>
+        <geom type="box" size="0.12 0.15 0.01" pos="0 -0.15 0" mass="0.1"/>
+      </body>
+
+      <body name="tail_1" pos="0.4 0 0">
         <joint name="tail_joint_1"/>
         <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
 
         <body name="tail_2" pos="0.2 0 0">
-          <joint name="tail_joint_2"/>
           <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
 
           <body name="tail_3" pos="0.2 0 0">
@@ -37,7 +46,6 @@
             <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
 
             <body name="tail_4" pos="0.2 0 0">
-              <joint name="tail_joint_4"/>
               <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
 
               <body name="tail_5" pos="0.2 0 0">
@@ -53,9 +61,10 @@
 
   <actuator>
     <position name="tail_servo_1" joint="tail_joint_1"/>
-    <position name="tail_servo_2" joint="tail_joint_2"/>
     <position name="tail_servo_3" joint="tail_joint_3"/>
-    <position name="tail_servo_4" joint="tail_joint_4"/>
     <position name="tail_servo_5" joint="tail_joint_5"/>
+    <position name="fin_servo_1" joint="fin_joint_1" ctrlrange="-0.5 0.5"/>
+    <position name="fin_servo_2" joint="fin_joint_2" ctrlrange="-0.5 0.5"/>
   </actuator>
+
 </mujoco>
