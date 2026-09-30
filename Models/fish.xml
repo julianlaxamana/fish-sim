@@ -6,6 +6,11 @@
     <joint type="hinge" axis="0 0 1" range="-0.785 0.785" damping="0.5" armature="0.01"/>
     <geom fluidshape="ellipsoid" fluidcoef="0.5 0.25 1.5 1.0 1.0"/>
     <position kp="50" kv="2" ctrlrange="-0.785 0.785" forcerange="-10 10"/>
+    <!-- no Kutta lift on the tail: MuJoCo's lift model turns side-to-side flapping into
+         vertical force whenever the fish pitches, which flips it nose-down -->
+    <default class="tail">
+      <geom fluidcoef="0.5 0.25 1.5 0 1.0"/>
+    </default>
   </default>
 
   <asset>
@@ -22,35 +27,35 @@
 
     <body name="fish" pos="0 0 -2">
       <freejoint/>
-      <geom type="box" size="0.4 0.125 0.3" mass="7"/>
+      <geom type="box" size="0.3 0.075 0.15" mass="7"/>
 
-      <body name="fin_1" pos="-0.25 0.125 0">
+      <body name="fin_1" pos="-0.18 0.075 0">
         <joint name="fin_joint_1" axis="0 1 0" range="-0.5 0.5"/>
         <geom type="box" size="0.12 0.15 0.01" pos="0 0.15 0" mass="0.1"/>
       </body>
 
-      <body name="fin_2" pos="-0.25 -0.125 0">
+      <body name="fin_2" pos="-0.18 -0.075 0">
         <joint name="fin_joint_2" axis="0 1 0" range="-0.5 0.5"/>
         <geom type="box" size="0.12 0.15 0.01" pos="0 -0.15 0" mass="0.1"/>
       </body>
 
-      <body name="tail_1" pos="0.4 0 0">
+      <body name="tail_1" pos="0.3 0 0" childclass="tail">
         <joint name="tail_joint_1"/>
-        <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+        <geom type="box" size="0.120 0.07 0.15" pos="0.130 0 0" mass="0.5"/>
 
-        <body name="tail_2" pos="0.2 0 0">
-          <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+        <body name="tail_2" pos="0.240 0 0">
+          <geom type="box" size="0.110 0.07 0.131" pos="0.120 0 0" mass="0.5"/>
 
-          <body name="tail_3" pos="0.2 0 0">
+          <body name="tail_3" pos="0.220 0 0">
             <joint name="tail_joint_3"/>
-            <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+            <geom type="box" size="0.100 0.07 0.113" pos="0.110 0 0" mass="0.5"/>
 
-            <body name="tail_4" pos="0.2 0 0">
-              <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+            <body name="tail_4" pos="0.200 0 0">
+              <geom type="box" size="0.090 0.07 0.094" pos="0.100 0 0" mass="0.5"/>
 
-              <body name="tail_5" pos="0.2 0 0">
+              <body name="tail_5" pos="0.180 0 0">
                 <joint name="tail_joint_5"/>
-                <geom type="box" size="0.1 0.07 0.15" pos="0.11 0 0" mass="0.5"/>
+                <geom type="box" size="0.080 0.07 0.075" pos="0.090 0 0" mass="0.5"/>
               </body>
             </body>
           </body>
@@ -60,9 +65,9 @@
   </worldbody>
 
   <actuator>
-    <position name="tail_servo_1" joint="tail_joint_1"/>
-    <position name="tail_servo_3" joint="tail_joint_3"/>
-    <position name="tail_servo_5" joint="tail_joint_5"/>
+    <position name="tail_servo_1" joint="tail_joint_1" kp="1000" forcerange="-150 150"/>
+    <position name="tail_servo_3" joint="tail_joint_3" kp="1000" forcerange="-150 150"/>
+    <position name="tail_servo_5" joint="tail_joint_5" kp="1000" forcerange="-150 150"/>
     <position name="fin_servo_1" joint="fin_joint_1" ctrlrange="-0.5 0.5"/>
     <position name="fin_servo_2" joint="fin_joint_2" ctrlrange="-0.5 0.5"/>
   </actuator>
